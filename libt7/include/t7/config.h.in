@@ -1,0 +1,21 @@
+/*
+ * Test-Driven Development Framework 7 for C
+ *
+ * Copyright (C) 2018 Toni Ronkko
+ * This file is part of T7.  T7 may be freely distributed under the MIT
+ * license.  For more information, see https://github.com/tronkko/t7
+ */
+#ifndef T7_CONFIG_H
+#define T7_CONFIG_H
+
+/* Versioning */
+#define T7_MAJOR @T7_MAJOR@
+#define T7_MINOR @T7_MINOR@
+#define T7_PATCHLEVEL @T7_PATCHLEVEL@
+
+/* Declare availability of custom header files */
+#cmakedefine HAVE_SCHED_H
+#cmakedefine HAVE_PTHREAD_H
+
+#endif /*T7_CONFIG_H*/
+

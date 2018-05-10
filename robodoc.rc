@@ -1,0 +1,77 @@
+items:
+    NAME
+    SYNOPSIS
+    FUNCTION
+    EXAMPLE
+    HISTORY
+    RETURNS
+
+item order:
+    NAME
+    SYNOPSIS
+    SOURCE
+    FUNCTION
+    EXAMPLE
+    HISTORY
+
+format items:
+    NAME
+    SYNOPSIS
+    FUNCTION
+    HISTORY
+
+source items:
+    SOURCE
+    SYNOPSIS
+
+preformatted items:
+    EXAMPLE
+    SOURCE
+
+options:
+    --src libt7/include/t7
+    --multidoc
+    --html
+    --index
+    --tabsize 8
+    --no_subdirectories
+    --sections
+    --sectionnameonly
+    --documenttitle "Test Platform T7"
+
+headertypes:
+    t  "Types"               robo_types        6
+    f  "Functions"           robo_functions    5
+    v  "Global Variables"    robo_variables    4
+    s  "Structures"          robo_structures   3
+    p  "Prototypes"          robo_prototypes   2
+    F  "Placeholders"        robo_placeholders 1
+
+accept files:
+    *.h
+
+remark begin markers:
+    /*
+
+remark markers:
+    *
+
+remark end markers:
+    */
+
+header markers:
+    /****
+
+end markers:
+    ****
+    /****
+
+source line comments:
+    //
+
+keywords:
+    if
+    while
+    for
+    return
+

@@ -1,0 +1,17 @@
+/*
+ * Test-Driven Development Framework 7 for C
+ *
+ * Copyright (C) 2018 Toni Ronkko
+ * This file is part of T7.  T7 may be freely distributed under the MIT
+ * license.  For more information, see https://github.com/tronkko/t7
+ */
+#ifndef T7_FEATURES_H
+#define T7_FEATURES_H
+
+#cmakedefine T7_DISABLE_THREADS
+#define T7_MAX_THREADS @T7_MAX_THREADS@
+#define T7_MAX_EXIT_HANDLERS @T7_MAX_EXIT_HANDLERS@
+
+#endif /*T7_FEATURES_H*/
+
+

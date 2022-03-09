@@ -11,139 +11,107 @@
 
 
 /* Allocate n bytes of memory */
-void *
-allocate_memory (size_t n)
+void *allocate_memory(size_t n)
 {
-    allocator_t *ap = get_default_allocator ();
-    return allocator_allocate_memory (ap, n);
+	struct allocator *ap = get_default_allocator();
+	return allocator_allocate_memory(ap, n);
 }
 
 
 /* Release memory area */
-void
-free_memory (void *p)
+void free_memory(void *p)
 {
-    allocator_t *ap = get_default_allocator ();
-    allocator_free_memory (ap, p);
+	struct allocator *ap = get_default_allocator();
+	allocator_free_memory(ap, p);
 }
 
 
 /* Resize memory region */
-void *
-resize_memory (void *p, size_t n)
+void *resize_memory(void *p, size_t n)
 {
-    allocator_t *ap = get_default_allocator ();
-    return allocator_resize_memory (ap, p, n);
+	struct allocator *ap = get_default_allocator();
+	return allocator_resize_memory(ap, p, n);
 }
 
 
 /* Reset memory region */
-void
-zero_memory (void *p, size_t n)
+void zero_memory(void *p, size_t n)
 {
-    assert (p != NULL  ||  n == 0);
+	assert(p != NULL || n == 0);
 
 #ifndef _WIN32
-
-    /****** Linux/Unix ******/
-    memset (p, 0, n);
-
+	memset(p, 0, n);
 #else
-
-    /****** Microsoft Windows ******/
-    ZeroMemory (p, n);
-
+	ZeroMemory(p, n);
 #endif
 }
 
 
 /* Fill memory region with character */
-void
-fill_memory (void *p, unsigned char c, size_t n)
+void fill_memory(void *p, unsigned char c, size_t n)
 {
-    assert (p != NULL  ||  n == 0);
+	assert (p != NULL || n == 0);
 
 #ifndef _WIN32
-
-    /****** Linux/Unix ******/
-    memset (p, (int) c, n);
-
+	memset (p, (int) c, n);
 #else
-
-    /****** Microsoft Windows ******/
-    FillMemory (p, n, c);
-
+	FillMemory (p, n, c);
 #endif
 }
 
 
 /* Copy memory regions */
-void
-copy_memory (void *p, const void *q, size_t n)
+void copy_memory(void *p, const void *q, size_t n)
 {
-    /* Make sure that memory areas do not overlap */
-    assert ((const char*) q + n <= (const char*) p  
-            ||  (const char*) p + n <= (const char*) q
-            ||  p == q);
+	/* Make sure that memory areas do not overlap */
+	assert ((const char*) q + n <= (const char*) p
+		|| (const char*) p + n <= (const char*) q
+		|| p == q);
 
 #ifndef _WIN32
-
-    /****** Linux/Unix ******/
-    memcpy (p, q, n);
-
+	memcpy(p, q, n);
 #else
-
-    /****** Microsoft Windows ******/
-    CopyMemory (p, n, n);
-
+	CopyMemory(p, n, n);
 #endif
 }
 
 
 /* Move bytes within region */
-void
-move_memory (void *p, const void *q, size_t n)
+void move_memory(void *p, const void *q, size_t n)
 {
-    assert (p != NULL  ||  n == 0);
+	assert(p != NULL || n == 0);
 
 #ifndef _WIN32
-
-    /****** Linux/Unix ******/
-    memmove (p, q, n);
-
+	memmove(p, q, n);
 #else
-
-    /****** Microsoft Windows ******/
-    MoveMemory (p, q, n);
-
+	MoveMemory (p, q, n);
 #endif
 }
 
 
 /* Swap contents of two memory regions */
-void
-swap_memory (void *p, void *q, size_t n)
+void swap_memory(void *p, void *q, size_t n)
 {
-    size_t i = 0;
-    char *cp = (char*) p;
-    char *qp = (char*) q;
-    char tmp;
+	size_t i = 0;
+	char *cp = (char*) p;
+	char *qp = (char*) q;
+	char tmp;
 
-    /* Check against null write */
-    assert ((cp != NULL  &&  qp != NULL)  ||  n == 0);
+	/* Check against null write */
+	assert((cp != NULL  &&  qp != NULL) || n == 0);
 
-    /* Make sure that memory areas do not overlap */
-    assert (qp + n <= cp  ||  cp + n <= qp  ||  cp == qp);
+	/* Make sure that memory areas do not overlap */
+	assert(qp + n <= cp || cp + n <= qp || cp == qp);
 
-    /*
-     * Swap memory areas byte by byte.  This is inefficient but will
-     * have to do for now.
-     */
-    for (i = 0; i < n; i++) {
-        tmp = cp[i];
-        cp[i] = qp[i];
-        qp[i] = tmp;
-    }
+	/*
+	 * Swap memory areas byte by byte.  This is inefficient but will
+	 * have to do for now.
+	 */
+	for (i = 0; i < n; i++) {
+		tmp = cp[i];
+		cp[i] = qp[i];
+		qp[i] = tmp;
+	}
 }
 
 
@@ -154,64 +122,35 @@ swap_memory (void *p, void *q, size_t n)
  * Thus, the function cannot call other functions who might depend on
  * fixtures!
  */
-void *
-system_allocate_memory (size_t n)
+void *system_allocate_memory(size_t n)
 {
-    void *p;
-
 #if !defined(_WIN32)
-
-    /****** Linux/Unix ******/
-    p = malloc (n);
-
+	return malloc(n);
 #else
-
-    /****** Microsoft Windows ******/
-    p = HeapAlloc (GetProcessHeap (), 0, n);
-
+	return HeapAlloc(GetProcessHeap(), 0, n);
 #endif
-
-    return p;
 }
 
 
 /* Release memory directly to system, not through fixtures */
-void
-system_free_memory (void *p)
+void system_free_memory(void *p)
 {
 #ifndef _WIN32
-
-    /****** Linux/Unix ******/
-    free (p);
-
+	free(p);
 #else
-
-    /****** Microsoft Windows ******/
-    HeapFree (GetProcessHeap (), 0, p);
-
+	HeapFree(GetProcessHeap(), 0, p);
 #endif
 }
 
 
 /* Resize memory region directly, not through fixtures */
-void *
-system_resize_memory (void *p, size_t n)
+void *system_resize_memory(void *p, size_t n)
 {
-    void *q;
-
 #ifndef _WIN32
-
-    /****** Linux/Unix ******/
-    q = realloc (p, n);
-
+	return realloc (p, n);
 #else
-
-    /****** Microsoft Windows ******/
-    q = HeapReAlloc (GetProcessHeap (), 0, p, n);
-
+	return HeapReAlloc (GetProcessHeap (), 0, p, n);
 #endif
-
-    return q;
 }
 
 

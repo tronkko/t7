@@ -21,7 +21,7 @@ endif (NOT CMAKE_BUILD_TYPE)
 MESSAGE(STATUS "Building ${CMAKE_BUILD_TYPE} version")
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 if (CMAKE_COMPILER_IS_GNUCC)
-    SET(CMAKE_C_FLAGS "-W -Wall -Wextra -Wunreachable-code -Wswitch-default -Wswitch-enum -Wfloat-equal -Wdeclaration-after-statement -Wwrite-strings -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wsign-conversion -pedantic")
+    SET(CMAKE_C_FLAGS "-W -Wall -Wextra -Wunreachable-code -Wswitch-default -Wswitch-enum -Wfloat-equal -Wwrite-strings -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wsign-conversion -pedantic")
 endif (CMAKE_COMPILER_IS_GNUCC)
 endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
 

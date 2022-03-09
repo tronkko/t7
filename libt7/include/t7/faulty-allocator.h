@@ -14,21 +14,11 @@ extern "C" {
 #endif
 
 
-/****v* libt7/faulty_allocator
- * NAME
- * faulty_allocator - memory allocator with failure simulation
- *
- * FUNCTION
- * Pointer to a type of memory allocator which supports simulation of memory
- * allocation failures.  This allocator is used by test_fixture.
- *
- * SOURCE
- */
-extern const allocator_type_t *faulty_allocator;
-/****/
+/* Faulty allocator type */
+extern const struct allocator_vtable *faulty_allocator;
 
 /* For defining custom fixtures */
-static allocator_t *get_faulty_allocator (fixture_t *fp);
+static struct allocator *get_faulty_allocator(fixture_t *fp);
 
 
 #ifdef __cplusplus

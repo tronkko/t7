@@ -15,7 +15,6 @@ extern "C" {
 /* Forward-decl */
 struct fixture_data;
 
-
 /****t* libt7/fixture_t
  * NAME
  * fixture_t - execution environment
@@ -71,19 +70,7 @@ typedef struct fixture_data fixture_t;
 /****/
 
 
-/****p* libt7/get_fixture_allocator_function
- * NAME
- * get_fixture_allocator_function - prototype of allocator getter
- *
- * FUNCTION
- * Prototype of a function who is responsible for returning a pointer to the
- * currently active memory allocator.  You may need to implement this function
- * in order to build custom fixtures.  See fixture_t for an example.
- *
- * SOURCE
- */
-typedef allocator_t *get_fixture_allocator_function (fixture_t *fp);
-/****/
+typedef struct allocator *get_fixture_allocator_function(fixture_t *fp);
 
 
 /****s* libt7/fixture_data
@@ -98,7 +85,7 @@ typedef allocator_t *get_fixture_allocator_function (fixture_t *fp);
  * SOURCE
  */
 struct fixture_data {
-    get_fixture_allocator_function *get_fixture_allocator;
+	get_fixture_allocator_function *get_fixture_allocator;
 };
 /****/
 

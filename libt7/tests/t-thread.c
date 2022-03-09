@@ -174,7 +174,7 @@ paddle_odd (thread_t *tp)
     while (!result) {
         enter_critical ();
         if (counter < 50) {
-            if ((counter & 2) == 1) {
+            if ((counter & 1) == 1) {
                 /* Odd count */
                 counter++;
             } else {
@@ -203,7 +203,7 @@ paddle_even (thread_t *tp)
     while (!result) {
         enter_critical ();
         if (counter < 50) {
-            if ((counter & 2) == 1) {
+            if ((counter & 1) == 1) {
                 /* Odd count */
                 /*NOP*/;
             } else {
